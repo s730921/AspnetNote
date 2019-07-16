@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AspnetNote.MVC6.DataContext;
 using AspnetNote.MVC6.Models;
+using AspnetNote.MVC6.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -22,7 +23,7 @@ namespace AspnetNote.MVC6.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(User model)
+        public IActionResult Login(LoginModelView model)
         {
             // ID, 비밀번호 - 필수
             if (ModelState.IsValid)
@@ -32,15 +33,17 @@ namespace AspnetNote.MVC6.Controllers
                     // Linq - 메서드 체이닝
                     // => : A Go to B
                     //var user = db.Users.FirstOrDefault(u => u.UserID == model.UserID && u.UserPassword == model.UserPassword);
-                    var user = db.Users.FirstOrDefault(u => u.UserID.Equals(model.UserID) &&
-                                                       u.UserPassword.Equals(model.UserPassword));
+                    var user = db.Users.FirstOrDefault(u => u.UserID.Equals(model.UserID)
+                                                         && u.UserPassword.Equals(model.UserPassword));
 
-                    if (user == null)
+                    if (user != null)
                     {
-
+                        // 로그인 성공
+                        return RedirectToAction("LoginSuccess", "Home");    //로그인 성공 페이지로 이동   
                     }
-
                 }
+                // 로그인 실패
+                ModelState.AddModelError(string.Empty, "사용자 ID 혹인 비밀번호가 올바르지 않습니다.");
             }
             return View(model);
         }
