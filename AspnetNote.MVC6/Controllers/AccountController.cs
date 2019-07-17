@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AspnetNote.MVC6.DataContext;
-using AspnetNote.MVC6.Models;
-using AspnetNote.MVC6.ViewModels;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using AspnetNote.MVC6.Models;
+using AspnetNote.MVC6.DataContext;
+using AspnetNote.MVC6.ViewModels;
+using Microsoft.AspNetCore.Http;
+
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -39,13 +38,36 @@ namespace AspnetNote.MVC6.Controllers
                     if (user != null)
                     {
                         // 로그인 성공
-                        return RedirectToAction("LoginSuccess", "Home");    //로그인 성공 페이지로 이동   
+                        //HttpContext.Session.SetInt32(key, value);
+                        //HttpContext.Session.SetInt32("LOGIN_KEY", user.UserNo);
+                        HttpContext.Session.SetString("Name", "shson");
+                        //return RedirectToAction("LoginSuccess", "Home");    //로그인 성공 페이지로 이동   
+                        var name = HttpContext.Session.GetString("Name");
+                        if (name == "shson")
+                        {
+                            return RedirectToAction("Register", "Account");    //로그인 성공 페이지로 이동
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "Home");    //로그인 성공 페이지로 이동
+                        }
+                        
                     }
                 }
                 // 로그인 실패
                 ModelState.AddModelError(string.Empty, "사용자 ID 혹인 비밀번호가 올바르지 않습니다.");
             }
             return View(model);
+        }
+
+        public IActionResult Logout()
+        {
+            // 모든 세션 삭제
+            //HttpContext.Session.Clear();
+
+            // 세션 삭제
+            HttpContext.Session.Remove("USER_LOGIN_KEY");
+            return RedirectToAction("Index", "Home");
         }
 
         /// <summary>

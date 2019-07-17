@@ -1,10 +1,11 @@
-﻿@model  AspnetNote.MVC6.Models.User
+﻿@model AspnetNote.MVC6.Models.User
+
 <h2>회원가입</h2>
 
 <form class="form-horizontal" method="post" asp-controller="Account" asp-action="Register">
     <div class="form-group">
         <label>사용자 ID</label>
-        <input type="text" class="form-control" asp-for="UserID" placeholder="사용자 ID 입력"/>
+        <input type="text" class="form-control" asp-for="UserID" placeholder="사용자 ID 입력" />
         <span class="text-danger" asp-validation-for="UserID"></span>
     </div>
 
