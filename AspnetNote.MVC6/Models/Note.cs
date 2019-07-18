@@ -14,13 +14,13 @@ namespace AspnetNote.MVC6.Models
         /// <summary>
         /// 게시물 제목
         /// </summary>
-        [Required]  // NOT NULL
+        [Required(ErrorMessage = "제목을 입력하세요.")]  // NOT NULL
         public string NoteTitle { get; set; }
 
         /// <summary>
         /// 게시물 내용
         /// </summary>
-        [Required]  // NOT NULL
+        [Required(ErrorMessage ="내용을 입력하세요.")]  // NOT NULL
         public string NoteContents { get; set; }
 
         /// <summary>

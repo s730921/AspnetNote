@@ -39,19 +39,8 @@ namespace AspnetNote.MVC6.Controllers
                     {
                         // 로그인 성공
                         //HttpContext.Session.SetInt32(key, value);
-                        //HttpContext.Session.SetInt32("LOGIN_KEY", user.UserNo);
-                        HttpContext.Session.SetString("Name", "shson");
-                        //return RedirectToAction("LoginSuccess", "Home");    //로그인 성공 페이지로 이동   
-                        var name = HttpContext.Session.GetString("Name");
-                        if (name == "shson")
-                        {
-                            return RedirectToAction("Register", "Account");    //로그인 성공 페이지로 이동
-                        }
-                        else
-                        {
-                            return RedirectToAction("Index", "Home");    //로그인 성공 페이지로 이동
-                        }
-                        
+                        HttpContext.Session.SetInt32("LOGIN_KEY", user.UserNo);
+                        return RedirectToAction("LoginSuccess", "Home");    //로그인 성공 페이지로 이동
                     }
                 }
                 // 로그인 실패
@@ -66,7 +55,7 @@ namespace AspnetNote.MVC6.Controllers
             //HttpContext.Session.Clear();
 
             // 세션 삭제
-            HttpContext.Session.Remove("USER_LOGIN_KEY");
+            HttpContext.Session.Remove("LOGIN_KEY");
             return RedirectToAction("Index", "Home");
         }
 

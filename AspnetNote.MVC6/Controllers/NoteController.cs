@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AspnetNote.MVC6.DataContext;
 using AspnetNote.MVC6.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -18,6 +19,10 @@ namespace AspnetNote.MVC6.Controllers
         /// <returns></returns>
         public IActionResult Index()
         {
+            if (HttpContext.Session.GetInt32("LOGIN_KEY") == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
             using (var db = new AspnetNoteDbContext())
             {
                 var list = db.Notes.ToList();
@@ -31,12 +36,23 @@ namespace AspnetNote.MVC6.Controllers
         /// <returns></returns>
         public IActionResult Add()
         {
+            if (HttpContext.Session.GetInt32("LOGIN_KEY") == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
             return View();
         }
 
         [HttpPost]
         public IActionResult Add(Note model)
         {
+            if (HttpContext.Session.GetInt32("LOGIN_KEY") == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            model.UserNo = int.Parse(HttpContext.Session.GetInt32("LOGIN_KEY").ToString());
+
             if (ModelState.IsValid)
             {
                 using (var db = new AspnetNoteDbContext())
@@ -60,6 +76,10 @@ namespace AspnetNote.MVC6.Controllers
         /// <returns></returns>
         public IActionResult Edit()
         {
+            if (HttpContext.Session.GetInt32("LOGIN_KEY") == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
             return View();
         }
 
@@ -69,6 +89,10 @@ namespace AspnetNote.MVC6.Controllers
         /// <returns></returns>
         public IActionResult Delete()
         {
+            if (HttpContext.Session.GetInt32("LOGIN_KEY") == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
             return View();
         }
     }

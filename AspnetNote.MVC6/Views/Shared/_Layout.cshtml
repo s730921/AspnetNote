@@ -34,8 +34,15 @@
                         <li><a class="nav-link text-dark" asp-area="" asp-controller="Note" asp-action="Index">게시판</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
+                    @if (Context.Session.GetInt32("LOGIN_KEY") == null) 
+                    {
                         <li><a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">회원가입</a></li>
                         <li><a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">로그인</a></li>
+                    }
+                    else
+                    {
+                        <li><a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">로그아웃</a></li>
+                    }
                     </ul>
                 </div>
             </div>
