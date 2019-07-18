@@ -1,10 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Http
 
-@{
-    //var UserName = Context.Session.GetInt32("LOGIN_KEY");
-    var UserName = Context.Session.GetString("Name");
-}
-<h1>세션정보 = (@UserName)</h1>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,17 +31,11 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li><a class="nav-link text-dark" asp-area="" asp-controller="Note" asp-action="Index">게시판</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        @if (Context.Session.GetString("Name") == null)
-                        {
-                            <li><a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">회원가입</a></li>
-                            <li><a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">로그인</a></li>
-                        }
-                        else
-                        {
-                            <li><a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">로그아웃</a></li>
-                        }
+                        <li><a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">회원가입</a></li>
+                        <li><a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">로그인</a></li>
                     </ul>
                 </div>
             </div>
