@@ -1,0 +1,27 @@
+﻿@model AspnetNote.MVC6.Models.Note
+
+<div class="row">
+    <div class="col-lg-12">
+        <h3 class="page-header">상세 읽기 - @Model.NoteTitle</h3>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-10">
+        <div class="panel-default">
+            <div class="panel-default">
+                <label>제목 : </label> @Model.NoteTitle
+            </div>
+            <div class="text-body">
+                @Html(@Model.NoteContents)
+
+                @*@Model.NoteContents*@
+            </div>
+            <div class="panel-default text-right">
+                <a class="btn btn-primary" asp-controller="Note" asp-action="Index">목록</a>
+            </div>
+
+        </div>
+
+    </div>
+</div>

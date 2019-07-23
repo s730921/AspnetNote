@@ -31,6 +31,24 @@ namespace AspnetNote.MVC6.Controllers
         }
 
         /// <summary>
+        /// 게시판 상세보기
+        /// </summary>
+        /// <param name="noteNo"></param>
+        /// <returns></returns>
+        public IActionResult Detail(int noteNo)
+        {
+            if (HttpContext.Session.GetInt32("LOGIN_KEY") == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            using(var db = new AspnetNoteDbContext())
+            {
+                var note = db.Notes.FirstOrDefault(u => u.NoteNo.Equals(noteNo));
+                return View(note);
+            }
+        }
+
+        /// <summary>
         /// 게시물 추가
         /// </summary>
         /// <returns></returns>
